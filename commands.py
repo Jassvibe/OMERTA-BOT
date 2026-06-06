@@ -1,47 +1,39 @@
-from discord.ext import commands
-import discord
+@bot.command()
+    @commands.has_permissions(manage_channels=True)
+    async def lock(ctx):
 
-async def setup_commands(bot):
+        overwrite = ctx.channel.overwrites_for(ctx.guild.default_role)
+        overwrite.send_messages = False
+
+        await ctx.channel.set_permissions(
+            ctx.guild.default_role,
+            overwrite=overwrite
+        )
+
+        await ctx.send("🔒 Channel locked.")
 
     @bot.command()
-    async def ping(ctx):
-        await ctx.send("Pong!")
+    @commands.has_permissions(manage_channels=True)
+    async def unlock(ctx):
+
+        overwrite = ctx.channel.overwrites_for(ctx.guild.default_role)
+        overwrite.send_messages = True
+
+        await ctx.channel.set_permissions(
+            ctx.guild.default_role,
+            overwrite=overwrite
+        )
+
+        await ctx.send("🔓 Channel unlocked.")
 
     @bot.command()
-    async def botinfo(ctx):
-        await ctx.send("OMERTA BOT is running.")
+    @commands.has_permissions(manage_channels=True)
+    async def slowmode(ctx, seconds: int):
 
-    @bot.command()
-    @commands.has_permissions(ban_members=True)
-    async def ban(ctx, member: discord.Member, *, reason="No reason provided"):
-
-        await member.ban(reason=reason)
+        await ctx.channel.edit(
+            slowmode_delay=seconds
+        )
 
         await ctx.send(
-            f"🔨 {member} has been banned.\nReason: {reason}"
+            f"⏱️ Slowmode set to {seconds} seconds."
         )
-
-    @bot.command()
-    @commands.has_permissions(kick_members=True)
-    async def kick(ctx, member: discord.Member, *, reason="No reason provided"):
-
-        await member.kick(reason=reason)
-
-        await ctx.send(
-            f"👢 {member} has been kicked.\nReason: {reason}"
-        )
-
-    @bot.command()
-    @commands.has_permissions(manage_messages=True)
-    async def clear(ctx, amount: int):
-
-        await ctx.channel.purge(limit=amount + 1)
-
-        msg = await ctx.send(
-            f"🧹 Deleted {amount} messages."
-        )
-
-        import asyncio
-        await asyncio.sleep(3)
-
-        await msg.delete()
