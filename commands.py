@@ -1,4 +1,6 @@
 from discord.ext import commands
+import discord
+
 from db import add_warning, get_warnings
 
 async def setup_commands(bot):
@@ -12,27 +14,25 @@ async def setup_commands(bot):
         await ctx.send("OMERTA BOT is running.")
 
     @bot.command()
-    async def warn(ctx, member, *, reason):
+    async def warn(ctx, member: discord.Member, *, reason):
 
         add_warning(
             ctx.guild.id,
-            int(member.strip("<@!>")),
+            member.id,
             ctx.author.id,
             reason
         )
 
         await ctx.send(
-            f"Warning added for {member}\nReason: {reason}"
+            f"Warning added for {member.mention}\nReason: {reason}"
         )
 
     @bot.command()
-    async def warnings(ctx, member):
-
-        user_id = int(member.strip("<@!>"))
+    async def warnings(ctx, member: discord.Member):
 
         data = get_warnings(
             ctx.guild.id,
-            user_id
+            member.id
         )
 
         if not data:
