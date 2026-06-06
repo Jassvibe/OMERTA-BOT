@@ -1,10 +1,20 @@
 import os
 import threading
+import asyncio
+
 from flask import Flask
 import discord
 from discord.ext import commands
 
-TOKEN = os.getenv("BOT_TOKEN")
+from bot.config import BOT_TOKEN
+from bot.commands import setup_commands
+from bot.events import setup_events
+
+from dashboard.routes import register_routes
+
+app = Flask(__name__)
+
+register_routes(app)
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -15,25 +25,16 @@ bot = commands.Bot(
     intents=intents
 )
 
-app = Flask(__name__)
-
-@app.route("/")
-def home():
-    return """
-    <h1>Discord Bot Dashboard</h1>
-    <p>Bot and Dashboard are running.</p>
-    """
-
-@bot.event
-async def on_ready():
-    print(f"Logged in as {bot.user}")
-
-@bot.command()
-async def ping(ctx):
-    await ctx.send("Pong!")
+async def setup_bot():
+    await setup_commands(bot)
+    await setup_events(bot)
 
 def run_bot():
-    bot.run(TOKEN)
+    async def runner():
+        await setup_bot()
+        await bot.start(BOT_TOKEN)
+
+    asyncio.run(runner())
 
 threading.Thread(target=run_bot).start()
 
