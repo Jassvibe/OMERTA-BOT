@@ -23,3 +23,52 @@ def test_connection():
     except Exception as e:
         print(f"Database Error: {e}")
         return False
+
+def add_warning(guild_id, user_id, moderator_id, reason):
+
+    conn = get_connection()
+    cur = conn.cursor()
+
+    cur.execute(
+        """
+        INSERT INTO warnings
+        (guild_id,user_id,moderator_id,reason)
+        VALUES (%s,%s,%s,%s)
+        """,
+        (
+            guild_id,
+            user_id,
+            moderator_id,
+            reason
+        )
+    )
+
+    conn.commit()
+
+    cur.close()
+    conn.close()
+
+def get_warnings(guild_id, user_id):
+
+    conn = get_connection()
+    cur = conn.cursor()
+
+    cur.execute(
+        """
+        SELECT reason
+        FROM warnings
+        WHERE guild_id=%s
+        AND user_id=%s
+        """,
+        (
+            guild_id,
+            user_id
+        )
+    )
+
+    data = cur.fetchall()
+
+    cur.close()
+    conn.close()
+
+    return data
