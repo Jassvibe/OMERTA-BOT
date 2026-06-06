@@ -14,8 +14,9 @@ async def setup_commands(bot):
         await ctx.send("OMERTA BOT is running.")
 
     @bot.command()
-    async def warn(ctx, member: discord.Member, *, reason):
+async def warn(ctx, member: discord.Member, *, reason):
 
+    try:
         add_warning(
             ctx.guild.id,
             member.id,
@@ -26,6 +27,9 @@ async def setup_commands(bot):
         await ctx.send(
             f"Warning added for {member.mention}\nReason: {reason}"
         )
+
+    except Exception as e:
+        await ctx.send(f"ERROR: {e}")
 
     @bot.command()
     async def warnings(ctx, member: discord.Member):
