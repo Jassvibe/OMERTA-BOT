@@ -1,8 +1,6 @@
 from discord.ext import commands
 import discord
 
-from db import add_warning, get_warnings
-
 async def setup_commands(bot):
 
     @bot.command()
@@ -14,34 +12,36 @@ async def setup_commands(bot):
         await ctx.send("OMERTA BOT is running.")
 
     @bot.command()
-    async def warn(ctx, member: discord.Member, *, reason):
+    @commands.has_permissions(ban_members=True)
+    async def ban(ctx, member: discord.Member, *, reason="No reason provided"):
 
-        add_warning(
-            ctx.guild.id,
-            member.id,
-            ctx.author.id,
-            reason
-        )
+        await member.ban(reason=reason)
 
         await ctx.send(
-            f"Warning added for {member.mention}\nReason: {reason}"
+            f"🔨 {member} has been banned.\nReason: {reason}"
         )
 
     @bot.command()
-    async def warnings(ctx, member: discord.Member):
+    @commands.has_permissions(kick_members=True)
+    async def kick(ctx, member: discord.Member, *, reason="No reason provided"):
 
-        data = get_warnings(
-            ctx.guild.id,
-            member.id
+        await member.kick(reason=reason)
+
+        await ctx.send(
+            f"👢 {member} has been kicked.\nReason: {reason}"
         )
 
-        if not data:
-            await ctx.send("No warnings found.")
-            return
+    @bot.command()
+    @commands.has_permissions(manage_messages=True)
+    async def clear(ctx, amount: int):
 
-        msg = ""
+        await ctx.channel.purge(limit=amount + 1)
 
-        for i, row in enumerate(data, start=1):
-            msg += f"{i}. {row[0]}\n"
+        msg = await ctx.send(
+            f"🧹 Deleted {amount} messages."
+        )
 
-        await ctx.send(msg)
+        import asyncio
+        await asyncio.sleep(3)
+
+        await msg.delete()
