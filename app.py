@@ -6,11 +6,11 @@ from flask import Flask
 import discord
 from discord.ext import commands
 
-from bot.config import BOT_TOKEN
-from bot.commands import setup_commands
-from bot.events import setup_events
+from config import BOT_TOKEN
+from commands import setup_commands
+from events import setup_events
+from routes import register_routes
 
-from dashboard.routes import register_routes
 
 app = Flask(__name__)
 
