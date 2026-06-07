@@ -4,7 +4,7 @@
   "description": "Discord Bot With Dashboard",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
     "deploy":"node deployCommands.js"
   },
   "dependencies": {
