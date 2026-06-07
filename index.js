@@ -8,6 +8,8 @@ const {
 const connectDatabase = require("./database");
 const startDashboard = require("./dashboard");
 const loadEvents = require("./events");
+const logging =
+require("./logging");
 
 const client = new Client({
   intents: [
@@ -19,6 +21,7 @@ const client = new Client({
 });
 
 loadEvents(client);
+logging(client);
 
 (async () => {
   await connectDatabase();
