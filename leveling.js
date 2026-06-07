@@ -1,25 +1,41 @@
-const levels =
-new Map();
+const Level =
+require("./levelModel");
 
-module.exports=(client)=>{
+module.exports =
+(client)=>{
 
  client.on(
  "messageCreate",
- message=>{
+ async message=>{
 
  if(message.author.bot)
  return;
 
- const id =
- message.author.id;
+ let data =
+ await Level.findOne({
 
- const data =
- levels.get(id) || {
+  guildId:
+  message.guild.id,
 
- xp:0,
- level:1
+  userId:
+  message.author.id
 
- };
+ });
+
+ if(!data){
+
+  data =
+  await Level.create({
+
+   guildId:
+   message.guild.id,
+
+   userId:
+   message.author.id
+
+  });
+
+ }
 
  data.xp += 5;
 
@@ -31,15 +47,16 @@ module.exports=(client)=>{
   data.level++;
 
   message.channel.send(
-  `${message.author} reached level ${data.level}`
+
+   `${message.author}
+   reached level
+   ${data.level}`
+
   );
 
  }
 
- levels.set(
- id,
- data
- );
+ await data.save();
 
  });
 
