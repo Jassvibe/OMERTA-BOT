@@ -1,31 +1,52 @@
-module.exports=(client)=>{
+const AutoReact =
+require("./autoReactModel");
 
-client.on(
-"messageCreate",
-async message=>{
+module.exports =
+(client)=>{
+
+ client.on(
+ "messageCreate",
+ async message=>{
 
  if(message.author.bot)
  return;
 
- const content =
- message.content.toLowerCase();
+ const rules =
+ await AutoReact.find({
 
- if(content.includes(
- "hello"
- )){
+  guildId:
+  message.guild.id
 
- await message.react("👋");
+ });
 
- await message.react("❤️");
+ for(
+ const rule of rules
+ ){
+
+  if(
+   message.content
+   .toLowerCase()
+   .includes(
+   rule.trigger
+   .toLowerCase()
+   )
+  ){
+
+   for(
+   const emoji of
+   rule.emojis
+   ){
+
+    await message.react(
+    emoji
+    );
+
+   }
+
+  }
 
  }
 
- if(content==="good night"){
-
- await message.react("🌙");
-
- }
-
-});
+ });
 
 };
