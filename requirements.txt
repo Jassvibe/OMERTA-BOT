@@ -1,6 +1,0 @@
-discord.py
-flask
-gunicorn
-python-dotenv
-psycopg2-binary
-aiohttp
