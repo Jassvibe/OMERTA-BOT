@@ -1,33 +1,43 @@
-module.exports = (client)=>{
+const AutoResponse =
+require("./autoResponseModel");
 
-const responses = {
+module.exports =
+(client)=>{
 
-hello:"Hi there 👋",
-
-rules:"Check #rules",
-
-help:"Use /help"
-
-};
-
-client.on(
-"messageCreate",
-message=>{
+ client.on(
+ "messageCreate",
+ async message=>{
 
  if(message.author.bot)
  return;
 
- const msg =
- message.content.toLowerCase();
+ const rules =
+ await AutoResponse.find({
 
- if(responses[msg]){
+  guildId:
+  message.guild.id
 
-   message.reply(
-    responses[msg]
+ });
+
+ for(
+ const rule of rules
+ ){
+
+  if(
+   rule.exact &&
+   message.content.toLowerCase()
+   ===
+   rule.trigger.toLowerCase()
+  ){
+
+   return message.reply(
+   rule.response
    );
+
+  }
 
  }
 
-});
+ });
 
 };
