@@ -56,4 +56,25 @@ module.exports = (client) => {
   client.on("error", console.error);
 
   client.on("warn", console.warn);
+  client.on("interactionCreate", async interaction => {
+
+ if(!interaction.isChatInputCommand()) return;
+
+ if(interaction.commandName==="ping"){
+
+   return interaction.reply(
+     "🏓 Pong!"
+   );
+
+ }
+
+ if(interaction.commandName==="help"){
+
+   return interaction.reply(
+     "Commands:\n/ping\n/help"
+   );
+
+ }
+
+});
 };

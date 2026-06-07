@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
+    "deploy":"node deployCommands.js"
   },
   "dependencies": {
     "discord.js": "^14.21.0",
