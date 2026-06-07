@@ -27,6 +27,14 @@ require("./moderation");
 
 const automod =
 require("./automod");
+const tickets =
+require("./tickets");
+
+const leveling =
+require("./leveling");
+
+const economy =
+require("./economy");
 
 const client = new Client({
   intents: [
