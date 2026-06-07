@@ -51,10 +51,22 @@ welcome(client);
 autoResponse(client);
 autoReact(client);
 
-(async () => {
+(as(async () => {
+
   await connectDatabase();
 
   startDashboard();
 
-  await client.login(process.env.BOT_TOKEN);
+  reactionRoles.setup(client);
+
+  buttonRoles.setup(client);
+
+  automod(client);
+
+  leveling(client);
+
+  await client.login(
+    process.env.BOT_TOKEN
+  );
+
 })();
