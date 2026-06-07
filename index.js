@@ -16,6 +16,17 @@ const autoResponse =
 require("./autoresponse");
 const autoReact =
 require("./autoreact");
+const reactionRoles =
+require("./reactionroles");
+
+const buttonRoles =
+require("./buttonroles");
+
+const moderation =
+require("./moderation");
+
+const automod =
+require("./automod");
 
 const client = new Client({
   intents: [
