@@ -10,6 +10,8 @@ const startDashboard = require("./dashboard");
 const loadEvents = require("./events");
 const logging =
 require("./logging");
+const welcome =
+require("./welcome");
 
 const client = new Client({
   intents: [
@@ -22,6 +24,7 @@ const client = new Client({
 
 loadEvents(client);
 logging(client);
+welcome(client);
 
 (async () => {
   await connectDatabase();
