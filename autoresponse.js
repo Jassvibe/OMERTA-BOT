@@ -6,9 +6,7 @@ hello:"Hi there 👋",
 
 rules:"Check #rules",
 
-help:"Use /help",
-
-Good morning:"Good morning qt"
+help:"Use /help"
 
 };
 
