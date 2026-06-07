@@ -1,28 +1,66 @@
-const balances =
-new Map();
+const Economy =
+require("./economyModel");
 
 module.exports = {
 
- getBalance(id){
+ async getBalance(
+ guildId,
+ userId
+ ){
 
-  return balances.get(id)
-  || 0;
+  let user =
+  await Economy.findOne({
+
+   guildId,
+   userId
+
+  });
+
+  if(!user){
+
+   user =
+   await Economy.create({
+
+    guildId,
+    userId
+
+   });
+
+  }
+
+  return user.balance;
 
  },
 
- addMoney(
- id,
+ async addMoney(
+ guildId,
+ userId,
  amount
  ){
 
-  balances.set(
-   id,
-   (
-   balances.get(id)
-   || 0
-   )
-   + amount
-  );
+  let user =
+  await Economy.findOne({
+
+   guildId,
+   userId
+
+  });
+
+  if(!user){
+
+   user =
+   await Economy.create({
+
+    guildId,
+    userId
+
+   });
+
+  }
+
+  user.balance += amount;
+
+  await user.save();
 
  }
 
