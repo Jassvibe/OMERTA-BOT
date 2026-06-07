@@ -51,7 +51,7 @@ welcome(client);
 autoResponse(client);
 autoReact(client);
 
-(as(async () => {
+(async () => {
 
   await connectDatabase();
 
