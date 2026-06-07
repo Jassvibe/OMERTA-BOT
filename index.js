@@ -14,6 +14,8 @@ const welcome =
 require("./welcome");
 const autoResponse =
 require("./autoresponse");
+const autoReact =
+require("./autoreact");
 
 const client = new Client({
   intents: [
@@ -28,6 +30,7 @@ loadEvents(client);
 logging(client);
 welcome(client);
 autoResponse(client);
+autoReact(client);
 
 (async () => {
   await connectDatabase();
