@@ -1,4 +1,4 @@
-hereconst mongoose =
+const mongoose =
 require("mongoose");
 
 const economySchema =
