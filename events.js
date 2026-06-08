@@ -1,5 +1,7 @@
 const commands = require("./commands");
 const config = require("./config");
+const settingsCommands =
+require("./settingsCommands");
 
 module.exports = (client) => {
   client.once("clientReady", () => {
@@ -57,6 +59,14 @@ module.exports = (client) => {
 
   client.on("warn", console.warn);
   client.on("interactionCreate", async interaction => {
+
+    if(
+!interaction.isChatInputCommand()
+) return;
+
+await settingsCommands(
+interaction
+);
 
  if(!interaction.isChatInputCommand()) return;
 
