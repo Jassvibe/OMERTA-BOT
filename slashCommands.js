@@ -7,7 +7,7 @@ module.exports = [
 
   new SlashCommandBuilder()
     .setName("help")
-    .setDescription("Show help menu")
+    .setDescription("Show help menu"),
 new SlashCommandBuilder()
 .setName("setlog")
 .setDescription("Set log channel")
