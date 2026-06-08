@@ -1,52 +1,22 @@
-const AutoReact =
-require("./autoReactModel");
+const mongoose = require("mongoose");
 
-module.exports =
-(client)=>{
+const schema = new mongoose.Schema({
 
- client.on(
- "messageCreate",
- async message=>{
+ guildId: String,
 
- if(message.author.bot)
- return;
+ trigger: String,
 
- const rules =
- await AutoReact.find({
+ emojis: [String],
 
-  guildId:
-  message.guild.id
-
- });
-
- for(
- const rule of rules
- ){
-
-  if(
-   message.content
-   .toLowerCase()
-   .includes(
-   rule.trigger
-   .toLowerCase()
-   )
-  ){
-
-   for(
-   const emoji of
-   rule.emojis
-   ){
-
-    await message.react(
-    emoji
-    );
-
-   }
-
-  }
-
+ exact: {
+  type: Boolean,
+  default: false
  }
 
- });
+});
 
-};
+module.exports =
+mongoose.model(
+ "AutoReact",
+ schema
+);
