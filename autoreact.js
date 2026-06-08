@@ -1,22 +1,52 @@
-const mongoose = require("mongoose");
-
-const schema = new mongoose.Schema({
-
- guildId: String,
-
- trigger: String,
-
- emojis: [String],
-
- exact: {
-  type: Boolean,
-  default: false
- }
-
-});
+const AutoReact =
+require("./autoReactModel");
 
 module.exports =
-mongoose.model(
- "AutoReact",
- schema
-);
+(client)=>{
+
+ client.on(
+ "messageCreate",
+ async message=>{
+
+ if(message.author.bot)
+ return;
+
+ const rules =
+ await AutoReact.find({
+
+  guildId:
+  message.guild.id
+
+ });
+
+ for(
+ const rule of rules
+ ){
+
+  if(
+   message.content
+   .toLowerCase()
+   .includes(
+   rule.trigger
+   .toLowerCase()
+   )
+  ){
+
+   for(
+   const emoji of
+   rule.emojis
+   ){
+
+    await message.react(
+    emoji
+    );
+
+   }
+
+  }
+
+ }
+
+ });
+
+};
