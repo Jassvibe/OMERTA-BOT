@@ -2,7 +2,7 @@ const commands = require("./commands");
 const config = require("./config");
 
 module.exports = (client) => {
-  client.once("ready", () => {
+  client.once("clientReady", () => {
     console.log("================================");
     console.log(`Bot: ${client.user.tag}`);
     console.log(`Servers: ${client.guilds.cache.size}`);
