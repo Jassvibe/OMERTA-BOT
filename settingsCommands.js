@@ -1,4 +1,4 @@
-hereconst GuildSettings =
+const GuildSettings =
 require("./guildSettings");
 
 const AutoResponse =
