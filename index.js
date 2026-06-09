@@ -104,7 +104,15 @@ autoReact(client);
   );
 
  }
+process.on(
+ "unhandledRejection",
+ console.error
+);
 
+process.on(
+ "uncaughtException",
+ console.error
+);
  await client.login(
   process.env.BOT_TOKEN
  );
