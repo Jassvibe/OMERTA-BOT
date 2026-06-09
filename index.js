@@ -7,10 +7,7 @@ const {
   Client,
   GatewayIntentBits
 } = require("discord.js");
-const {
-  Client,
-  GatewayIntentBits partial
-} = require("discord.js");
+
 
 const connectDatabase = require("./database");
 const startDashboard = require("./dashboard");
