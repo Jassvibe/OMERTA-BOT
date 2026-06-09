@@ -1,20 +1,48 @@
+const GuildSettings =
+require("./guildSettings");
+
 module.exports = (client) => {
 
-client.on("messageDelete", async message => {
+ client.on(
+  "messageDelete",
+  async message => {
 
- if(!message.guild) return;
+   if(
+    !message.guild
+   ) return;
 
- const channel =
- message.guild.channels.cache.find(
- c=>c.name==="logs"
- );
+   const settings =
+   await GuildSettings.findOne({
 
- if(!channel) return;
+    guildId:
+    message.guild.id
 
- channel.send(
- `🗑️ Message Deleted\nAuthor: ${message.author}\nContent: ${message.content}`
- );
+   });
 
-});
+   if(
+    !settings ||
+    !settings.logChannel
+   ) return;
+
+   const channel =
+   message.guild.channels.cache.get(
+    settings.logChannel
+   );
+
+   if(!channel) return;
+
+   channel.send(
+
+`🗑️ Message Deleted
+
+Author:
+${message.author}
+
+Content:
+${message.content || "No Content"}`
+
+   );
+
+ });
 
 };
