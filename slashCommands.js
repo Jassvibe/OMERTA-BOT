@@ -3,6 +3,27 @@ require("discord.js");
 
 module.exports = [
 
+ new SlashCommandBuilder()
+.setName("removeresponse")
+.setDescription("Remove auto response")
+.addStringOption(option =>
+ option
+ .setName("trigger")
+ .setDescription("Trigger")
+ .setRequired(true)
+),
+
+new SlashCommandBuilder()
+.setName("removereaction")
+.setDescription("Remove auto reaction")
+.addStringOption(option =>
+ option
+ .setName("trigger")
+ .setDescription("Trigger")
+ .setRequired(true)
+),
+
+
 new SlashCommandBuilder()
 .setName("ping")
 .setDescription("Check bot latency"),
