@@ -5,7 +5,8 @@ const slashCommands = require("./slashCommands");
 
 const {
   Client,
-  GatewayIntentBits
+  GatewayIntentBits,
+  partials
 } = require("discord.js");
 
 
