@@ -6,7 +6,7 @@ const slashCommands = require("./slashCommands");
 const {
   Client,
   GatewayIntentBits,
-  partials
+  Partials
 } = require("discord.js");
 
 
@@ -47,12 +47,18 @@ const client = new Client({
   GatewayIntentBits.Guilds,
   GatewayIntentBits.GuildMembers,
   GatewayIntentBits.GuildMessages,
-  GatewayIntentBits.MessageContent
+  GatewayIntentBits.MessageContent,
+   GatewayIntentBits.GuildMessageReactions,
+ GatewayIntentBits.GuildModeration
+
  ],
 
  partials: [
   Partials.Message,
-  Partials.Channel
+  Partials.Channel,
+  Partials.Reaction,
+ Partials.User,
+ Partials.GuildMember
  ]
 
 });
@@ -76,8 +82,7 @@ autoReact(client);
  automod(client);
 
  leveling(client);
-  welcome(client);
-logging(client);
+
 
  const rest =
  new REST({
