@@ -7,14 +7,15 @@ const {
   Client,
   GatewayIntentBits
 } = require("discord.js");
+const {
+  Client,
+  GatewayIntentBits partial
+} = require("discord.js");
 
 const connectDatabase = require("./database");
 const startDashboard = require("./dashboard");
 const loadEvents = require("./events");
-const logging =
-require("./logging");
-const welcome =
-require("./welcome");
+
 const autoResponse =
 require("./autoresponse");
 const autoReact =
