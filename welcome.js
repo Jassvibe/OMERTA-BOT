@@ -1,37 +1,71 @@
+const GuildSettings =
+require("./guildSettings");
+
 module.exports = (client) => {
 
-client.on(
-"guildMemberAdd",
-member=>{
+ client.on(
+  "guildMemberAdd",
+  async member => {
 
- const channel =
- member.guild.channels.cache.find(
- c=>c.name==="welcome"
- );
+   const settings =
+   await GuildSettings.findOne({
 
- if(!channel) return;
+    guildId:
+    member.guild.id
 
- channel.send(
- `👋 Welcome ${member}`
- );
+   });
 
-});
+   if(
+    !settings ||
+    !settings.welcomeChannel
+   ) return;
 
-client.on(
-"guildMemberRemove",
-member=>{
+   const channel =
+   member.guild.channels.cache.get(
+    settings.welcomeChannel
+   );
 
- const channel =
- member.guild.channels.cache.find(
- c=>c.name==="welcome"
- );
+   if(!channel) return;
 
- if(!channel) return;
+   channel.send(
 
- channel.send(
- `😢 Goodbye ${member.user.tag}`
- );
+    `👋 Welcome ${member}
+You are member #${member.guild.memberCount}`
 
-});
+   );
+
+ });
+
+ client.on(
+  "guildMemberRemove",
+  async member => {
+
+   const settings =
+   await GuildSettings.findOne({
+
+    guildId:
+    member.guild.id
+
+   });
+
+   if(
+    !settings ||
+    !settings.welcomeChannel
+   ) return;
+
+   const channel =
+   member.guild.channels.cache.get(
+    settings.welcomeChannel
+   );
+
+   if(!channel) return;
+
+   channel.send(
+
+    `😢 Goodbye ${member.user.tag}`
+
+   );
+
+ });
 
 };
