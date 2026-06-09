@@ -1,5 +1,8 @@
 require("dotenv").config();
 
+const { REST, Routes } = require("discord.js");
+const slashCommands = require("./slashCommands");
+
 const {
   Client,
   GatewayIntentBits
@@ -53,20 +56,57 @@ autoReact(client);
 
 (async () => {
 
-  await connectDatabase();
+ await connectDatabase();
 
-  startDashboard();
+ startDashboard();
 
-  reactionRoles.setup(client);
+ reactionRoles.setup(client);
 
-  buttonRoles.setup(client);
+ buttonRoles.setup(client);
 
-  automod(client);
+ automod(client);
 
-  leveling(client);
+ leveling(client);
 
-  await client.login(
-    process.env.BOT_TOKEN
+ const rest =
+ new REST({
+  version: "10"
+ }).setToken(
+  process.env.BOT_TOKEN
+ );
+
+ try {
+
+  await rest.put(
+
+   Routes.applicationCommands(
+    process.env.CLIENT_ID
+   ),
+
+   {
+    body:
+    slashCommands.map(
+     command =>
+     command.toJSON()
+    )
+   }
+
   );
+
+  console.log(
+   "Slash Commands Registered"
+  );
+
+ } catch(error){
+
+  console.error(
+   error
+  );
+
+ }
+
+ await client.login(
+  process.env.BOT_TOKEN
+ );
 
 })();
