@@ -173,5 +173,62 @@ async (interaction)=>{
   });
 
  }
+ if(
+ interaction.commandName
+ ===
+ "removeresponse"
+){
 
+ const trigger =
+ interaction.options.getString(
+  "trigger"
+ );
+
+ await AutoResponse.deleteOne({
+
+  guildId:
+  interaction.guild.id,
+
+  trigger
+
+ });
+
+ return interaction.reply({
+
+  content:
+  "Response Removed"
+
+ });
+
+ }
+
+ if(
+ interaction.commandName
+ ===
+ "removereaction"
+){
+
+ const trigger =
+ interaction.options.getString(
+  "trigger"
+ );
+
+ await AutoReact.deleteOne({
+
+  guildId:
+  interaction.guild.id,
+
+  trigger
+
+ });
+
+ return interaction.reply({
+
+  content:
+  "Reaction Removed"
+
+ });
+
+ }
+ 
 };
