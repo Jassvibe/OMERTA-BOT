@@ -38,16 +38,26 @@ require("./leveling");
 
 const economy =
 require("./economy");
+const welcome = require("./welcome");
+const logging = require("./logging");
+
 
 const client = new Client({
-  intents: [
-    GatewayIntentBits.Guilds,
-    GatewayIntentBits.GuildMembers,
-    GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.MessageContent
-  ]
-});
 
+ intents: [
+  GatewayIntentBits.Guilds,
+  GatewayIntentBits.GuildMembers,
+  GatewayIntentBits.GuildMessages,
+  GatewayIntentBits.MessageContent
+ ],
+
+ partials: [
+  Partials.Message,
+  Partials.Channel
+ ]
+
+});
+  
 loadEvents(client);
 logging(client);
 welcome(client);
@@ -67,6 +77,8 @@ autoReact(client);
  automod(client);
 
  leveling(client);
+  welcome(client);
+logging(client);
 
  const rest =
  new REST({
