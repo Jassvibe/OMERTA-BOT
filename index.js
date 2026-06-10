@@ -23,8 +23,7 @@ require("./reactionroles");
 
 const buttonRoles =
 require(".buttonroles");
-const buttonRoles =
-require("./buttonRoles");
+
 const moderation =
 require("./moderation");
 
