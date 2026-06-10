@@ -18,4 +18,4 @@ module.exports =
 mongoose.model(
  "ReactionRole",
  schema
-);￼Enter
+);
