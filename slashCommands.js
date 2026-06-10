@@ -82,6 +82,30 @@ new SlashCommandBuilder()
  .setName("emoji")
  .setDescription("Emoji")
  .setRequired(true)
+),
+ new SlashCommandBuilder()
+.setName("reactionrole")
+.setDescription("Create reaction role")
+
+.addStringOption(option=>
+ option
+ .setName("messageid")
+ .setDescription("Message ID")
+ .setRequired(true)
+)
+
+.addStringOption(option=>
+ option
+ .setName("emoji")
+ .setDescription("Emoji")
+ .setRequired(true)
+)
+
+.addRoleOption(option=>
+ option
+ .setName("role")
+ .setDescription("Role")
+ .setRequired(true)
 )
 
 ];
