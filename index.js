@@ -22,8 +22,9 @@ const reactionRoles =
 require("./reactionroles");
 
 const buttonRoles =
-require("./buttonroles");
-
+require(".buttonroles");
+const buttonRoles =
+require("./buttonRoles");
 const moderation =
 require("./moderation");
 
@@ -68,6 +69,7 @@ logging(client);
 welcome(client);
 autoResponse(client);
 autoReact(client);
+buttonRoles(client);
 
 (async () => {
 
