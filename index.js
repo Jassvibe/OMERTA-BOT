@@ -68,6 +68,8 @@ logging(client);
 welcome(client);
 autoResponse(client);
 autoReact(client);
+reactionRoles(client);
+buttonRoles(client);
 
 (async () => {
 
@@ -75,9 +77,7 @@ autoReact(client);
 
  startDashboard();
 
- reactionRoles(client);
-
- buttonRoles(client);
+ 
 
  automod(client);
 
