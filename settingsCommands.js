@@ -7,9 +7,56 @@ require("./autoResponseModel");
 const AutoReact =
 require("./autoReactModel");
 
+const ReactionRole =
+require("./reactionRoleModel");
+
 module.exports =
 async (interaction)=>{
 
+ if(
+ interaction.commandName
+ ===
+ "reactionrole"
+){
+
+ const messageId =
+ interaction.options.getString(
+  "messageid"
+ );
+
+ const emoji =
+ interaction.options.getString(
+  "emoji"
+ );
+
+ const role =
+ interaction.options.getRole(
+  "role"
+ );
+
+ await ReactionRole.create({
+
+  guildId:
+  interaction.guild.id,
+
+  messageId,
+
+  emoji,
+
+  roleId:
+  role.id
+
+ });
+
+ return interaction.reply({
+
+  content:
+  "Reaction Role Created"
+
+ });
+
+ }
+ 
  if(
  interaction.commandName
  ===
