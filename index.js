@@ -68,20 +68,22 @@ logging(client);
 welcome(client);
 autoResponse(client);
 autoReact(client);
-reactionRoles(client);
-buttonRoles(client);
+
 
 (async () => {
 
  await connectDatabase();
 
- startDashboard();
+startDashboard();
 
- 
+reactionRoles.setup(client);
 
- automod(client);
+buttonRoles(client);
 
- leveling(client);
+automod(client);
+
+leveling(client);
+
 
 
  const rest =
@@ -92,7 +94,7 @@ buttonRoles(client);
  );
 
  try {
-
+   
   await rest.put(
 
    Routes.applicationCommands(
